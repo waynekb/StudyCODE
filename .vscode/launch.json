@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/muduo/a.out",
+            "program": "${workspaceFolder}/pcap/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
