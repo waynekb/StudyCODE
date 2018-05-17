@@ -3,6 +3,9 @@
         "ostream": "cpp",
         "thread": "cpp",
         "mutex": "cpp",
-        "chrono": "c"
+        "chrono": "c",
+        "array": "cpp",
+        "slist": "cpp",
+        "initializer_list": "cpp"
     }
 }

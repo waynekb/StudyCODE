@@ -1,5 +1,6 @@
 #include <new.h>
 
+
 template <class T1,class T2>
 inline void construct(T1* p,T2 value){
     new(p) T1(value);

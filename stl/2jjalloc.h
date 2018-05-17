@@ -2,17 +2,23 @@
 #define _JJALLOC_
 
 #include <iostream>
+#include <new>
+#include <cstddef>
+#include <cstdlib>
+#include <climits>
 namespace JJ
 {
 
 template <class T>
-inline  T* __allocate(ptrdiff_t size,T*){
-    set_new_handler(0);
+inline  T* _allocate(ptrdiff_t size,T*){
+    // set_new_handler(0);
+
     T* temp=(T*)::operator new((size_t)(size*sizeof(T)));
     if(temp==0){
-        cer<<"out of memory"<<endl;
+        std::cerr<<"out of memory"<<std::endl;
         exit(1);
     }
+    std::cout<<"use self operator new"<<std::endl;
     return temp;
 }
 
@@ -20,11 +26,20 @@ inline  T* __allocate(ptrdiff_t size,T*){
 template <class T>
 inline void _deallocate(T* buffer){
     ::operator delete(buffer);
+    std::cout<<"use self operator delete"<<std::endl;
 }
 
 template <class T1,class T2>
 inline void _construct(T1 *p,const T2& value){
     new (p) T1(value);
+    std::cout<<"use self __construct"<<std::endl;
+}
+
+
+template<class T>
+inline void _destroy(T* ptr){
+    ptr->~T();
+    std::cout<<"use self __desconstruct"<<std::endl;
 }
 
 template <class T>
@@ -44,7 +59,7 @@ public:
     };
 
     pointer allocate(size_type n,const void* hint =0){
-        return _allocate((difference_type)n,(pointer)0)
+        return _allocate((difference_type)n,(pointer)0);
     }
 
     void deallocate(pointer p, size_type n){ _deallocate(p);}
@@ -55,7 +70,10 @@ public:
 
     void destroy(pointer p){_destroy(p);}
 
-    pointer address(reference x){return (pointer)&x;}
+    pointer address(reference x){
+        std::cout<<"use self address"<<std::endl;
+        return (pointer)&x;
+        }
 
     const_pointer const_address(const reference x){return (const_pointer)&x;}
 
