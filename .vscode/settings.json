@@ -6,6 +6,8 @@
         "chrono": "c",
         "array": "cpp",
         "slist": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "xmemory0": "cpp",
+        "xlocale": "cpp"
     }
 }
