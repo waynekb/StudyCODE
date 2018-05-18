@@ -8,6 +8,7 @@
         "slist": "cpp",
         "initializer_list": "cpp",
         "xmemory0": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "*.tcc": "cpp"
     }
 }
