@@ -5,6 +5,12 @@
 
 #define __THROW_BAD_ALLOC std::cerr<<"out of memory"<<std::endl;exit(1)
 
+
+/**
+ * 一级空间配置器
+ * 
+ **/
+
 template <int inst>
 class __malloc_alloc_template{
 private:
@@ -70,6 +76,12 @@ void* __malloc_alloc_template<inst>::oom_realloc(void* p,size_t n){
 
 typedef __malloc_alloc_template<0> malloc_alloc;
 
+
+/**
+ * 二级空间配置器
+ * 
+ **/
+
 enum {__ALING =8};
 enum {__MAX_BYTES =128};
 enum {__NFREELISTS = __MAX_BYTES/__ALING};
@@ -91,7 +103,7 @@ private:
     }
     
     static void* refill(size_t n);    
-    static char *chunk_alloc(size_t size,int &nobjs);
+    static char* chunk_alloc(size_t size,int &nobjs);
     
     static obj * volatile free_list[__NFREELISTS];
     static char* start_free;
@@ -167,7 +179,82 @@ void* __default_alloc_template<threads,inst>::reallocate(void* p,size_t old_sz,s
 
 };
 
+template <bool threads,int inst>
+void* __default_alloc_template<threads,inst>::refill(size_t n){
+    int nobjs=20;
+    char* chunk=chunk_alloc(n, nobjs);
+    objs* volatile * my_free_list;
+    objs* result=chunk;
+    objs* next_objs, *curren_objs;
+    int i=1;
+    if(nobjs=1)return chunk;
+
+    my_free_list = free_list+FREELIST_INDEX(n);
+    *my_free_list= (objs*)(chunk+n);
+    next_objs = (objs*)(chunk+n);
+    for(;i<nobjs;i++){
+        curren_objs=next_objs;
+        next_objs=(objs*)((char*)curren_objs+n);
+        curren_objs->free_list_link=next_objs;
+    }
+    curren_objs->free_list_link=NULL;
+    return (result);
 };
 
+
+
+
+
+template <bool threads, int inst>
+char* __default_alloc_template<threads,inst>::
+chunk_alloc(size_t size,int &nobjs){
+    char* result;
+    size_t total_bytes=size * nobjs;
+    size_t bytes_left = end_free-start_free;
+
+    if(bytes_left >= total_bytes){
+        result = start_free;
+        start_free += total_bytes;
+        return (result);
+    }
+    else if(bytes_left >= size){
+        nobjs = bytes_left/size;
+        result = start_free;
+        start_free += size*nobjs;
+        return (result);
+    }
+    else{
+
+        size_t bytes_to_get = 2* total_bytes + ROUND_UP(heap_size >> 4);
+        if(bytes_left > 8){
+            objs* volatile * my_free_list = free_list+FREELIST_INDEX(bytes_left)-1;
+            (obj*)start_free->free_list_link = * my_free_list;
+            * my_free_list = (objs*)start_free;
+        }
+        start_free = (char*) malloc( bytes_to_get);
+
+        if(start_free == 0){
+            int i;
+            objs* volatile * my_free_list;
+            for(i=size; i<= __MAX_BYTES; i+=__ALING){
+                my_free_list = free_list + FREELIST_INDEX(i);
+                objs* p= *my_freeList;
+                if(my_free_list != NULL){
+                    start_free = (char*)my_free_list;
+                    end_free=(char*)my_free_list + i;
+                    *my_freeList = p->free_list_link;
+                    return (chunk_alloc(size, nobjs));
+                }
+            }
+            end_free = 0;
+            start_free = (char*)malloc_alloc::allocate(bytes_to_get);//调用第一级配置器，看看 out_of_memory机制能否尽力
+        }
+        heap_size = bytes_to_get;
+        end_free = start_free + bytes_to_get;
+        return (chunk_alloc(size,nobjs));
+    }
+
+
+}
 
 #endif
