@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/pcap/a.out",
+            "program": "${workspaceFolder}/zaluan/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
