@@ -1,3 +1,6 @@
+#ifndef _STL_CONSTRUCT_H
+#define _STL_CONSTRUCT_H
+
 #include <new.h>
 
 
@@ -13,7 +16,7 @@ inline void destroy(T* pointer){
 
 template <class ForwardIterator>
 inline void destroy(ForwardIterator first, ForwardIterator last){
-    __destroy(first,last,value_type(first));
+    __destroy(first,last,value_type(first));    //根据数据类型判断是否需要调用析构函数
 }
 
 template <class ForwardIterator,class T>
@@ -29,4 +32,9 @@ inline void __destroy_aux(ForwardIterator first,ForwardIterator last, __false_ty
 }
 
 template <class ForwardIterator>
-inline void __destroy_aux
+inline void __destroy_aux(ForwardIterator first,ForwardIterator last, __true_type){}
+
+inline void destroy(char *,char *){}
+inline void destroy(wchar_t *,wchar_t *){}
+
+#endif
