@@ -1,5 +1,7 @@
-#ifndef _STL_UNINITIALIZED_H
-#define _STL_UNINITIALIZED_H
+#ifndef _MYSTL_UNINITIALIZED_H
+#define _MYSTL_UNINITIALIZED_H
+
+namespace mystl{
 
 #include <string.h>
 
@@ -115,4 +117,8 @@ inline void __uninitialized_fill__aux(ForwardIterator first, ForwardIterator las
 }
 
 
+
+
+
+}
 #endif

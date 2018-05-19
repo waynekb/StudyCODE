@@ -1,8 +1,11 @@
-#ifndef _STL_CONSTRUCT_H
-#define _STL_CONSTRUCT_H
+#ifndef _MYSTL_CONSTRUCT_H
+#define _MYSTL_CONSTRUCT_H
+
+
 
 #include <new.h>
 
+namespace mystl{
 
 template <class T1,class T2>
 inline void construct(T1* p,T2 value){
@@ -37,4 +40,5 @@ inline void __destroy_aux(ForwardIterator first,ForwardIterator last, __true_typ
 inline void destroy(char *,char *){}
 inline void destroy(wchar_t *,wchar_t *){}
 
+}
 #endif

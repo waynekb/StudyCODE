@@ -1,6 +1,7 @@
-#ifndef _STL_ALLOC_H
-#define _STL_ALLOC_H
+#ifndef _MYSTL_ALLOC_H
+#define _MYSTL_ALLOC_H
 
+namespace mystl{
 #include <iostream>
 
 #define __THROW_BAD_ALLOC std::cerr<<"out of memory"<<std::endl;exit(1)
@@ -257,4 +258,9 @@ chunk_alloc(size_t size,int &nobjs){
 
 }
 
+
+
+
+
+}
 #endif

@@ -9,6 +9,11 @@
         "initializer_list": "cpp",
         "xmemory0": "cpp",
         "xlocale": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "xutility": "cpp",
+        "memory": "cpp",
+        "xmemory": "cpp",
+        "iostream": "cpp",
+        "utility": "cpp"
     }
 }
