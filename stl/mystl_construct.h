@@ -41,4 +41,5 @@ inline void destroy(char *,char *){}
 inline void destroy(wchar_t *,wchar_t *){}
 
 }
+
 #endif
