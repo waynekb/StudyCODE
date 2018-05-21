@@ -1,7 +1,7 @@
-#ifndef _MYSTL_ITERATOR_H
-#define _MYSTL_ITERATOR_H
+#ifndef _HWSTL_ITERATOR_H
+#define _HWSTL_ITERATOR_H
 
-namespace mystl{
+namespace hwstl{
 
 struct input_iterator_tag {};
 struct output_iterator_tag {};

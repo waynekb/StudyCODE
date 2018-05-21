@@ -1,14 +1,14 @@
-#ifndef _MYTYPE_TRAITS_H
-#define _MYTYPE_TRAITS_H
+#ifndef _HWTYPE_TRAITS_H
+#define _HWTYPE_TRAITS_H
 
 
-namespace mystl{
+namespace hwstl{
 
 struct __true_type{};
 struct __false_type{};
 
 template<class T>
-struct __mytype_traits{
+struct __hwtype_traits{
     typedef __false_type has_trivial_default_constructor;
     typedef __false_type has_trivial_copy_constructor;
     typedef __false_type has_trivial_assignment_operator;
@@ -17,7 +17,7 @@ struct __mytype_traits{
 };
 
 template<>
-struct __mytype_traits<char>{
+struct __hwtype_traits<char>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -26,17 +26,7 @@ struct __mytype_traits<char>{
 };
 
 template<>
-struct __mytype_traits<signed char>{
-    typedef __true_type has_trivial_default_constructor;
-    typedef __true_type has_trivial_copy_constructor;
-    typedef __true_type has_trivial_assignment_operator;
-    typedef __true_type has_trivial_destructor;
-    typedef __true_type is_POD_type;
-};
-
-
-template<>
-struct __mytype_traits<unsigned char>{
+struct __hwtype_traits<signed char>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -46,7 +36,17 @@ struct __mytype_traits<unsigned char>{
 
 
 template<>
-struct __mytype_traits<short>{
+struct __hwtype_traits<unsigned char>{
+    typedef __true_type has_trivial_default_constructor;
+    typedef __true_type has_trivial_copy_constructor;
+    typedef __true_type has_trivial_assignment_operator;
+    typedef __true_type has_trivial_destructor;
+    typedef __true_type is_POD_type;
+};
+
+
+template<>
+struct __hwtype_traits<short>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -55,7 +55,7 @@ struct __mytype_traits<short>{
 };
 
 template<>
-struct __mytype_traits<unsigned short>{
+struct __hwtype_traits<unsigned short>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -64,7 +64,7 @@ struct __mytype_traits<unsigned short>{
 };
 
 template<>
-struct __mytype_traits<int>{
+struct __hwtype_traits<int>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -73,7 +73,7 @@ struct __mytype_traits<int>{
 };
 
 template<>
-struct __mytype_traits<unsigned int>{
+struct __hwtype_traits<unsigned int>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -82,7 +82,7 @@ struct __mytype_traits<unsigned int>{
 };
 
 template<>
-struct __mytype_traits<long>{
+struct __hwtype_traits<long>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -91,7 +91,7 @@ struct __mytype_traits<long>{
 };
 
 template<>
-struct __mytype_traits<unsigned long>{
+struct __hwtype_traits<unsigned long>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -100,7 +100,7 @@ struct __mytype_traits<unsigned long>{
 };
 
 template<>
-struct __mytype_traits<float>{
+struct __hwtype_traits<float>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -109,7 +109,7 @@ struct __mytype_traits<float>{
 };
 
 template<>
-struct __mytype_traits<double>{
+struct __hwtype_traits<double>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -118,7 +118,7 @@ struct __mytype_traits<double>{
 };
 
 template<>
-struct __mytype_traits<long double>{
+struct __hwtype_traits<long double>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;
@@ -127,7 +127,7 @@ struct __mytype_traits<long double>{
 };
 
 template<class T>
-struct __mytype_traits<T*>{
+struct __hwtype_traits<T*>{
     typedef __true_type has_trivial_default_constructor;
     typedef __true_type has_trivial_copy_constructor;
     typedef __true_type has_trivial_assignment_operator;

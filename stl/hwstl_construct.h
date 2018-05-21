@@ -1,11 +1,11 @@
-#ifndef _MYSTL_CONSTRUCT_H
-#define _MYSTL_CONSTRUCT_H
+#ifndef _HWSTL_CONSTRUCT_H
+#define _HWSTL_CONSTRUCT_H
 
 
 
 #include <new.h>
 
-namespace mystl{
+namespace hwstl{
 
 template <class T1,class T2>
 inline void construct(T1* p,T2 value){

@@ -1,7 +1,7 @@
-#ifndef _MYSTL_UNINITIALIZED_H
-#define _MYSTL_UNINITIALIZED_H
+#ifndef _HWSTL_UNINITIALIZED_H
+#define _HWSTL_UNINITIALIZED_H
 
-namespace mystl{
+namespace hwstl{
 
 #include <string.h>
 

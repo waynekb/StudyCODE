@@ -1,27 +1,27 @@
-#ifndef _MYAUTO_PTR_H
-#define _MYAUTO_PTR_H
+#ifndef _HWAUTO_PTR_H
+#define _HWAUTO_PTR_H
 
 
 
-namespace mystl{
+namespace hwstl{
     
 template<class T>
-class myauto_ptr{
+class hwauto_ptr{
 public:
-    explicit myauto_ptr(T *p=0):pointer(p){}
+    explicit hwauto_ptr(T *p=0):pointer(p){}
     T& operator*()const {return *pointer;}
     T* operator->()const {return pointer;}
     T* get() const {return pointer;}
 
     template<class U>
-    myauto_ptr(const myauto_ptr<U>& rhs):pointer(rhs.release()){}
+    hwauto_ptr(const hwauto_ptr<U>& rhs):pointer(rhs.release()){}
 
     template<class U>
-    myauto_ptr<T>& operator=(myauto_ptr<U>& rhs){
+    hwauto_ptr<T>& operator=(hwauto_ptr<U>& rhs){
         if(this !=&rhs) reset(rhs.release());
         return *this;
     }
-    ~myauto_ptr(){
+    ~hwauto_ptr(){
         delete pointer;
     }
 
