@@ -3,25 +3,25 @@
 #include <stdio.h>
 using namespace std;
 
-namespace mystl{
+namespace hwstl{
 
 template<class T>
-class myauto_ptr{
+class hwauto_ptr{
 public:
-    explicit myauto_ptr(T *p=0):pointer(p){}
+    explicit hwauto_ptr(T *p=0):pointer(p){}
     T& operator*()const {return *pointer;}
     T* operator->()const {return pointer;}
     T* get() const {return pointer;}
 
     template<class U>
-    myauto_ptr(const myauto_ptr<U>& rhs):pointer(rhs.release()){}
+    hwauto_ptr(const hwauto_ptr<U>& rhs):pointer(rhs.release()){}
 
     template<class U>
-    myauto_ptr<T>& operator=(myauto_ptr<U>& rhs){
+    hwauto_ptr<T>& operator=(hwauto_ptr<U>& rhs){
         if(this !=&rhs) reset(rhs.release());
         return *this;
     }
-    ~myauto_ptr(){
+    ~hwauto_ptr(){
         if(pointer!=NULL){
             cout<<*pointer<<endl;
         }
@@ -49,12 +49,12 @@ private:
 
 int main(){
     {
-        //  mystl::myauto_ptr<int> d(new int(5));
-         mystl::myauto_ptr<int> d;
+        //  hwstl::hwauto_ptr<int> d(new int(5));
+         hwstl::hwauto_ptr<int> d;
     }
-    mystl::myauto_ptr<int> a(new int(4));
-    mystl::myauto_ptr<string> b(new string("i love cl"));
-    mystl::myauto_ptr<string> c;
+    hwstl::hwauto_ptr<int> a(new int(4));
+    hwstl::hwauto_ptr<string> b(new string("i love cl"));
+    hwstl::hwauto_ptr<string> c;
     // cout<<*a<<endl;
     // cout<<*b<<endl;
     c=b;

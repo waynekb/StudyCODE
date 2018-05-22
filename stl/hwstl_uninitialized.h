@@ -1,7 +1,7 @@
-#ifndef _MYSTL_UNINITIALIZED_H
-#define _MYSTL_UNINITIALIZED_H
+#ifndef _HWSTL_UNINITIALIZED_H
+#define _HWSTL_UNINITIALIZED_H
 
-namespace mystl{
+namespace hwstl{
 
 #include <string.h>
 
@@ -12,12 +12,12 @@ namespace mystl{
 */
 
 template <class ForwardIterator, class Size, class T>
-inline ForwardIterator uninitialized_fill_n(ForwardIterator begin,Size n, const T& x){
-    return __uninitialized_fill_n(first, n, x, value_type(first));
+inline ForwardIterator uninitialized_fill_n(ForwardIterator first,Size n, const T& x){
+    return __uninitialized_fill_n(first, n, x, value_type(first));//获取迭代器所指对象的类型的指针
 }
 
 template <class ForwardIterator, class Size, class T, class U>
-inline ForwardIterator __uninitialized_fill_n(ForwardIterator begin, Size n, const T& x, U*){
+inline ForwardIterator __uninitialized_fill_n(ForwardIterator first, Size n, const T& x, U*){
     typedef typename __type_traits<U>::is_POD_type is_POD;
     return __uninitialized_fill_n_aux(first, n, x, is_POD());
 }
@@ -29,12 +29,12 @@ inline ForwardIterator __uninitialized_fill_n(ForwardIterator begin, Size n, con
 
 
 template <class ForwardIterator, class Size, class T>
-inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator begin, Size n, const T& x, __ture_type){
+inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first, Size n, const T& x, __ture_type){
     return fill_n(firs,n,x);
 }
 
 template <class ForwardIterator, class Size, class T>
-inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator begin, Size n, const T& x, __false_type){
+inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first, Size n, const T& x, __false_type){
     ForwardIterator curr =first;
     for(int i; i < n ;i++, curr++){
         construct(&*curr,x);
@@ -50,7 +50,7 @@ inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator begin, Size n,
 *
 */
 template <class InputIterator, class ForwardIterator>
-inline ForwardIterator uninitialized_copy(InputIterator begin, InputIterator last, ForwardIterator result){
+inline ForwardIterator uninitialized_copy(InputIterator first, InputIterator last, ForwardIterator result){
     return __uninitialized_copy(first, last, result, value_type(result));
 }
 
@@ -69,7 +69,7 @@ template <class InputIterator, class ForwardIterator>
 inline ForwardIterator __uninitialized_copy_aux(InputIterator first, InputIterator last, ForwardIterator result, __false_type){
     ForwardIterator cur=result;
     for(;first != last; first++,cur++){
-        construct(&*cur, first);
+        construct(&*cur, *first);
     }
     return cur;
 }

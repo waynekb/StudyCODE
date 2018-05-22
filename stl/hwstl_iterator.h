@@ -1,7 +1,7 @@
-#ifndef _MYSTL_ITERATOR_H
-#define _MYSTL_ITERATOR_H
+#ifndef _HWSTL_ITERATOR_H
+#define _HWSTL_ITERATOR_H
 
-namespace mystl{
+namespace hwstl{
 
 struct input_iterator_tag {};
 struct output_iterator_tag {};
@@ -22,7 +22,9 @@ struct iterator{
 
 
 /**
- * 泛化类型萃取器
+ * 泛化类型萃取器,对于容器迭代器，因为是相应型别是内嵌定义的，
+ * 可以直接获取，而不经过迭代器萃取器这一层封装。
+ * 但是对于原始指针 char* ，则必须经由迭代器萃取器来定义并获取相应型别。
  * **/
 
 template <class Iterator>
@@ -59,12 +61,17 @@ struct iterator_traits<const T*>{
     typedef const T& reference;
 };
 
+
+
+
 template <class Iterator>
 inline typename iterator_traits<Iterator>::iterator_category
 iterator_category(const Iterator&){
     typedef typename iterator_traits<Iterator>::iterator_category category;
     return category();
 }
+
+
 
 template <class Iterator>
 inline typename iterator_traits<Iterator>::value_type*
@@ -78,6 +85,8 @@ inline typename iterator_traits<Iterator>::difference_type*
 difference_type(const Iterator&){
     return static_cast<typename iterator_traits<Iterator>::difference_type*>(0);
 }
+
+
 
 template <class InputIterator>
 inline typename iterator_traits<InputIterator>::difference_type
