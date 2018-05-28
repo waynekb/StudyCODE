@@ -21,6 +21,12 @@
         "set": "cpp",
         "vector": "cpp",
         "xstring": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "xfunctional": "cpp",
+        "xstddef": "cpp",
+        "xtr1common": "cpp",
+        "xiosbase": "cpp"
     }
 }
