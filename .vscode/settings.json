@@ -28,5 +28,6 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xiosbase": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

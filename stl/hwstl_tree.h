@@ -251,4 +251,42 @@ public:
 inline void
 hw_rb_tree_rebalance(hw_rb_tree_node_base* x, hw_rb_tree_node_base*& root) 
 }
+
+
+template<class key, class value, class keyofvalue, class compare, class Alloc>
+typename rb_tree<key, value, keyofvalue, compare, Alloc>::iterator
+rb_tree<key,value, keyofvalue, compare, Alloc>::insert_equal(const value& v){
+    link_type y=header;
+    link_type x=root();
+    while(x!=0){
+        y = x;
+        x = key_compare(keyofvalue()(v), key(x)) ? left(x):right(x);
+    }
+    return __insert(x, y, v);
+}
+
+template<class key, class value, class keyofvalue, class compare, class Alloc>
+pair<typename rb_tree<key, value, keyofvalue, compare, Alloc>::iterator,bool>
+rb_tree<key, value, keyofvalue, compare, Alloc>::insert_unique(const value& v){
+    link_type y= header;
+    link_type x= root();
+    bool comp=true;
+    while(x!=0){
+        y=x;
+        comp = key_compare(keyofvalue()(v), key(x));
+        x=comp? left(x):right(x);
+    }
+
+    iterator j=iterator(y);
+    if(comp){
+        if( j == begin() )
+            return pair<iterator,bool>
+        else --j;
+        if(key_compare(key(j.node), keyofvalue()(v)))
+            return pair<iterator,bool>(__insert(x,y,v),true);
+        return pair<iterator, bool>(j, value);
+    }
+}
+
+
 #endif
