@@ -27,7 +27,10 @@
         "xfunctional": "cpp",
         "xstddef": "cpp",
         "xtr1common": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "unordered_map": "cpp",
+        "typeinfo": "cpp",
+        "cstdlib": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
