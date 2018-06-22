@@ -21,41 +21,29 @@ public:
         while(prenode){
             cur = prenode->next;
             int count = 0; 
-            while(cur){
-                if(cur->val == prenode->val){
-                    cur=cur->next;
-                    count++;
-                }
-                else
-                    break;
+            while(cur && cur->val ==  prenode->val){
+                cur=cur->next;
+                count++;
             }
-            if(cur == NULL){
-                return NULL;
-            }
-            else 
+            if(count==0)break;
+            else{
                 prenode=cur;
-            
+            }
         }
         ListNode* res=prenode;
-        while(prenode && cur->next!=NULL){
+        while(prenode && prenode->next!=NULL){
             cur=prenode->next;
-            if(cur == NULL) break;
+            ListNode* nextnode=cur->next;
             int count=0;
-            while(cur->next != NULL){
-                if(cur->val == cur->next->val){
-                    cur=cur->next;
-                    count++;
-                }
-                else{
-                    if(count == 0){
-                        prenode=cur;
-                    }
-                    else{
-                        prenode->next=cur->next;
-                        cur=cur->next;
-                    }
-                    break;
-                }
+            while(nextnode && nextnode->val == cur->val){
+                nextnode=nextnode->next;
+                count++;
+            }
+            if(count == 0){
+                prenode=cur;
+            }
+            else{
+                prenode->next=nextnode;
             }
         }
         return res;
@@ -63,7 +51,7 @@ public:
 };
 
 int main(){
-    vector<int> valarray={1,1,2,2,3,3,4,4,5};
+    vector<int> valarray={1,2,2,3,3,4,5,5};
     ListNode* pHead = new ListNode(0);
     ListNode* cur=pHead;
     for(auto &w:valarray){
