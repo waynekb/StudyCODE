@@ -30,7 +30,9 @@
         "xiosbase": "cpp",
         "unordered_map": "cpp",
         "typeinfo": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "stdio.h": "c",
+        "functional": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
