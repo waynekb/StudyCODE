@@ -13,9 +13,6 @@ using namespace std;
 
 void client(){
     int client_fd;
-    char send_buf[MAXSIZE]={0};
-    char recv_buf[MAXSIZE]={0};
-
     struct sockaddr_in server_addr;
     bzero(&server_addr, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
@@ -31,15 +28,30 @@ void client(){
         cout<<"connect fail"<<endl;
         return;
     }
-
+    fd_set read_set;
+    int stdin_fd=fileno(stdin);
     while(1){
-        fgets(send_buf, sizeof(send_buf), stdin);
-        send(client_fd,send_buf,strlen(send_buf),0);
-        recv(client_fd,recv_buf,sizeof(recv_buf),0);
-        if(strcmp(send_buf,"exit\n")==0)break;
-        cout<<recv_buf<<endl;
-        memset(recv_buf,0,sizeof(recv_buf));
-        memset(send_buf,0,sizeof(send_buf));
+        int maxfd=-1;
+        FD_ZERO(&read_set);
+        FD_SET(stdin_fd,&read_set);
+        maxfd=maxfd > stdin_fd ? maxfd:stdin_fd;
+        FD_SET(client_fd,&read_set);
+        maxfd=maxfd > client_fd ? maxfd:client_fd;
+        int ret=select(maxfd+1,&read_set,NULL,NULL,NULL);
+        if(FD_ISSET(stdin_fd,&read_set)){
+            char send_buf[MAXSIZE]={0};
+            fgets(send_buf, sizeof(send_buf), stdin);
+            int read_len=strlen(send_buf);
+            if(send_buf[read_len-1] == '\n')
+                send_buf[read_len-1] = '\0';
+            send(client_fd,send_buf,strlen(send_buf),0);    
+        }
+        if(FD_ISSET(client_fd,&read_set)){
+            char recv_buf[MAXSIZE]={0};
+            int read_len=read(client_fd,recv_buf,MAXSIZE-1);
+            recv_buf[MAXSIZE-1];
+            cout << "recv msg from server："<<recv_buf<<endl;
+        }
     }
     close(client_fd);
     return;
