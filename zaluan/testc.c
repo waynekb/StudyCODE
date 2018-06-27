@@ -1,6 +1,7 @@
 #include "foo.h"
 #include "string.h"
 #include "stdio.h"
+// #include "foo.h"
 
 char **mSplit(const char *str, char *sep, int max_strs, int *toks, char meta)
 {
@@ -164,6 +165,13 @@ void deletespace(const char* oldstr,char* newstr ,int len){
     newstr[len-1]=0;
 }
 
+// int main(){
+//     foo();
+// }
+
+
+#include <stdio.h>
+
 int main(){
     char str[10]="a bd gg ";
     // gets(str);
@@ -171,4 +179,13 @@ int main(){
     deletespace(str,str1,10);
     printf("%s count = %d \n",str,strlen(str));
     printf("%s count = %d \n",str1,strlen(str1));
+    union rec{
+        char buf[4];
+        int a;
+    };
+
+    union rec r;
+    r.a=0x12345678;
+    r.buf[1]=0x32;
+    printf("%x\n",r.a);
 }

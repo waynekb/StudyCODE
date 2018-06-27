@@ -32,7 +32,8 @@
         "typeinfo": "cpp",
         "cstdlib": "cpp",
         "stdio.h": "c",
-        "functional": "cpp"
+        "functional": "cpp",
+        "*.ipp": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
