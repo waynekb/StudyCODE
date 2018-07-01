@@ -42,6 +42,7 @@ void client(){
             char send_buf[MAXSIZE]={0};
             fgets(send_buf, sizeof(send_buf), stdin);
             int read_len=strlen(send_buf);
+            if(read_len==1)continue;
             if(send_buf[read_len-1] == '\n')
                 send_buf[read_len-1] = '\0';
             send(client_fd,send_buf,strlen(send_buf),0);    

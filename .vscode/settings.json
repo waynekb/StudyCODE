@@ -33,7 +33,8 @@
         "cstdlib": "cpp",
         "stdio.h": "c",
         "functional": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "algorithm": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
